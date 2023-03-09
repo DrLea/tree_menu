@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Tree Structure {% endblock %}
+
+{% block content %}
+    {% if restaurants %}
+        <ul>
+            {% for restaurant in restaurants %}
+                <li>{{ restaurant.title }}</li>
+                {% for meal in restaurant.meals.all %}
+                    {{ meal }}
+                {% endfor %}
+                <button onclick="toggleContent()">Show details</button>
+                <div id="content" style="display: none;">
+                    <p>{{ restaurant.address }}</p>
+                </div>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function toggleContent() {
+            var content = document.getElementById("content");
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}
